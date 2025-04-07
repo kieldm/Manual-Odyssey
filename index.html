@@ -1,0 +1,225 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Manual - Odyssey</title>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.2/p5.min.js"></script>
+    <script src="https://unpkg.com/h264-mp4-encoder/embuild/dist/h264-mp4-encoder.web.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script src="sketch_odyssey.js" type="text/javascript"></script>
+    <script src="curveType.js" type="text/javascript"></script>
+
+    <script src="textures.js" type="text/javascript"></script>
+    <script src="update.js" type="text/javascript"></script>
+    <script src="animators.js" type="text/javascript"></script>
+    <script src="recording.js" type="text/javascript"></script>
+    <script src="sizing.js" type="text/javascript"></script>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300&display=swap" rel="stylesheet">
+
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="left-column" id="left-UI">
+
+        <div class="module">
+          <h1>MANUAL</h1>
+          <h1>_Odyssey</h1>
+          <h2>a text generator</h2>
+          
+          <!-- <h2>Version 0.1 - beta | March 24, 2025</h2> -->
+        </div>
+
+        <div class="module">
+          <h3>Canvas</h3>
+
+          <div class="subModule">
+            <select name="canvasSize" id="canvasSize" onchange="setCanvasSize(this.value)">
+              <option value="0">Square</option>
+              <option value="1">Horizontal</option>
+              <option value="2">Vertical</option>
+              <option value="3">Full Screen</option>
+              <option value="4" selected="selected">Custom</option>
+              <option value="5">Size to Image</option>
+            </select>
+
+            <div id="customSizeInputs">
+              <div class="moduleLabel">W:</div>
+              <input type="number" name="wInput" value="1080" oninput="setCustomW(this.value)">
+              <div class="moduleLabel">H:</div>
+              <input type="number" name="hInput" value="1350"  oninput="setCustomH(this.value)">
+            </div>
+
+            <div class="subModule">
+              <input type="color" id="bkgdColor" name="bkgdColor" value="#ffffff" oninput="setBkgdColor(this.value)">
+              <div class="moduleLabel">Background</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="module">
+          <h3>TEXT</h3>
+
+          <div class="subModule">
+            <select name="textFont" id="textFont" onchange="setTextFont(this.value)">
+              <option value="0" selected="selected">Agrandir - TightBlack</option>
+              <option value="1">TT Bluesceens - DemiBold</option>
+              <option value="2">TT Bluescreens - Black</option>
+              <option value="3">NeueWorld - SemiCondensedLight</option>
+              <option value="4">NeueWorld - CondensedRegular</option>
+              <option value="5">NeueWorld - CondensedBold</option>
+              <option value="6">Inter - Black</option>
+              <option value="7">Neue Montreal - Bold</option>
+              <option value="8">RightGrotesk - SpatialBlack</option>
+              <option value="9">Fomula Condened - Black</option>
+            </select>
+          </div>
+
+          <div class="subModule">
+            <div class="moduleLabel">Dip Intensity</div>
+            <input type="range" class="ranger" min="0" max="100" value="50" id="dipSize" oninput="setDipSize(this.value)">
+          </div>
+
+          <div class="subModule">
+            <div class="moduleLabel">Cut Count</div>
+            <input type="range" class="ranger" min="0" max="100" value="50" id="cutCount" oninput="setCutCount(this.value)">
+          </div>
+
+          <div class="subModule">
+            <div class="moduleLabel">Top Half</div>
+            <input type="text" value="EMPTY" id="text0" oninput="setText(0, this.value)">
+
+            <div class="subModule">
+              <div class="subModule3_pair">
+                <div class="subModule5a">
+                  <div class="moduleLabel">Align</div>
+                </div>
+
+                <div class="subModule5b">
+                  <select name="topAlignType" id="topAlignType" onchange="setAlignType(0, this.value)">
+                    <option value="1" selected="selected">To Top</option>
+                    <option value="-1">To Bottom</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="subModule3_pair">
+                <div class="subModule5a">
+                  <div class="moduleLabel">Curve</div>
+                </div>
+
+                <div class="subModule5b">
+                  <select name="topCurveType" id="topCurveType" onchange="setCurveType(0, this.value)">
+                    <option value="0" selected="selected">Concave</option>
+                    <option value="1">Convex</option>
+                  </select>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+
+          <div class="subModule">
+            <div class="moduleLabel">Bottom Half</div>
+            <input type="text" value="SPACE" id="text0" oninput="setText(0, this.value)">
+
+            <div class="subModule">
+              <div class="subModule3_pair">
+                <div class="subModule5a">
+                  <div class="moduleLabel">Align</div>
+                </div>
+
+                <div class="subModule5b">
+                  <select name="botAlignType" id="botAlignType" onchange="setAlignType(1, this.value)">
+                    <option value="1">To Top</option>
+                    <option value="-1" selected="selected">To Bottom</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="subModule3_pair">
+                <div class="subModule5a">
+                  <div class="moduleLabel">Curve</div>
+                </div>
+
+                <div class="subModule5b">
+                  <select name="botCurveType" id="botCurveType" onchange="setCurveType(1, this.value)">
+                    <option value="0" selected="selected">Concave</option>
+                    <option value="1">Convex</option>
+                  </select>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <div class="module">
+          <h3>Export</h3>
+
+          <!-- <div class="subModule">
+            <input type="button" name="pauseAll" id="pauseAll" value="Pause" onclick="runPauseAll()">
+          </div> -->
+
+          <div class="subModule">
+            <div class="subModule3_pair">
+              <div class="subModule5a">
+                <select name="saveFileType" id="saveFileType" onchange="setSaveFileType(this.value)">
+                  <option value="0" selected="selected">PNG</option>
+                  <option value="1">JPG</option>
+                  <!-- <option value="3">SVG</option> -->
+                  <option value="2">MP4</option>
+                </select>
+              </div>
+
+              <div class="subModule5b">
+                <input type="button" name="setDefault" id="setDefault" value="Export" onclick="runExport()">
+              </div>
+            </div>
+          </div>
+
+
+          <div class="subModule3" id="alphaBkgdOption">
+            <input type="checkbox" id="alphaBkgdToggle" name="alphaBkgdToggle" onclick="setAlphaBkgdToggle()">
+            <label for="alphaBkgdToggle">Alpha Bkgd</label>
+          </div>
+
+          
+          <div class="subModule" id="motionOptions">
+            <div class="moduleLabel">Length: <span id="numFrames">30</span> fr @ 30fps</div>
+            <!-- <input type="range" class="ranger" min="0" max="100" value="20" id="numFramesSlider" oninput="setNumFrames(this.value)"> -->
+
+            <div class="subModuleSubButton" id="loopNowPossible">
+              <input type="button" class="subButton" name="approxLoop" id="approxLoop" value="Suggested Loop" onclick="setApproxLoop()">
+            </div>
+  
+          </div>
+
+          <div class="subModule" id="recStatus">
+            <h4>RECORDING IN PROCESS <br><span id="recTicker"></span>/<span id="numFrame"></span></h4>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="right-column">
+        <div id="previewScale">Preview Scaled </div>
+        <div class="centerButton" id="canvas-container"></div>
+      </div>
+    </div>
+  
+
+  </body>
+  
+  </html>
+  

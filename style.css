@@ -1,0 +1,636 @@
+/* darkGreen: #002d2a;
+limeGreen: #7ecf1c;
+gray: #f5f5f5; */
+
+body{
+  background-image:url("resources/transparency.png");
+  background-repeat: repeat;
+  /* background:#bababa; */
+  padding:0;
+  margin:0
+}
+
+canvas {
+  vertical-align: top;
+  border-radius: 3px;
+} 
+
+* {
+  box-sizing:border-box;
+}
+
+@font-face {
+  font-family: "Geist";
+  src: url("resources/Geist-Medium.ttf");
+}
+
+@font-face {
+  font-family: "GeistExtraBold";
+  src: url("resources/Geist-ExtraBold.ttf");
+}
+
+@font-face {
+  font-family: "GeistLight";
+  src: url("resources/Geist-Light.ttf");
+}
+
+/* MAIN CONTAINER */
+
+.container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+#defaultCanvas0{
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+}
+
+.left-column {
+  width: 200px;
+  height:auto;
+  background-color: #fff;
+  padding: 10px;
+  margin: 5px;
+
+  overflow: auto;
+
+  border-radius: 3px;
+
+  /* background: rgba(255, 255, 255, 0.35); */
+  /* backdrop-filter: blur(2px); */
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.25);
+}
+
+.right-column {
+  flex:1;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: 5px;
+  margin-left:0px;
+  padding:0px;
+
+  border-radius: 3px;
+}
+
+#previewScale {
+  font-family: "Geist", sans-serif;
+  font-size:12px;
+  color: #fff;
+
+  display:block;
+  position:absolute;
+  bottom:5px;
+  right:5px;
+  background-color: #000;
+
+  height:auto;
+
+  padding:10px;
+  margin-left:5px;
+  border-radius: 3px;
+}
+
+.centerButton{
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+#canvas-container {
+  z-index:-100;
+  width: 100%;
+  height: 100%;
+
+  margin:0;
+  padding:0;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+/* MODULES */
+
+.module {
+  margin-top:20px;
+}
+
+.moduleLabel {
+  font-family: "Geist", sans-serif;
+  margin-bottom:5px;
+  font-size:10pt;
+  color: #000;
+}
+
+.subModule {
+  padding-top:5px;
+  padding-bottom:5px;
+  display:flex;
+  flex-direction: column;
+}
+.subModuleRow {
+  padding-top:5px;
+  display:flex;
+  flex-direction: row;
+}
+.subModuleRow .moduleLabel {
+  /* margin-left:5px; */
+  margin-top:2px;
+  margin-right:5px;
+}
+.subModuleSubButton {
+  padding-top:5px;
+  display:flex;
+}
+.subModule2 {
+  padding-top:5px;
+  display:flex;
+  flex-direction: column;
+}
+
+.subModule3 {
+  width:90px;
+  padding-top:5px;
+  display:flex;
+  flex-direction: row;
+}
+.subModule3 .moduleLabel {
+  margin-top:5px;
+  margin-left:3px;
+}
+
+.subModule3_pair {
+  /* padding-top:5px; */
+  display:flex;
+  flex-direction: row;
+  gap:5px;
+}
+.subModule4 {
+  width:90px;
+  padding-top:5px;
+  display:flex;
+  flex-direction: column;
+}
+.subModule5a {
+  width:80px;
+  /* margin-top:5px; */
+  display:flex;
+  flex-direction: row;
+}
+
+.subModule5a label {
+  padding-top:0px;
+  margin-left:3px;
+}
+
+.subModuleRow label {
+  margin-top:2px;
+  margin-left:3px;
+}
+
+.subModule5b {
+  /* margin-top:5px; */
+  width:100px;
+}
+/* .subModule4 .moduleLabel {
+  font-size:8pt;
+} */
+
+.subModule3 label {
+  margin-top:2px;
+  margin-left:3px;
+}
+
+.subsubModuleAnimate {
+  display:flex;
+  flex-direction: row;
+}
+.subsubModuleAnimate input[type="checkbox"] {
+  appearance: none; /* Removes default styling */
+  width: 15px;
+  height: 15px;
+  background-color: #e8e8e8;
+  border: 1px solid black;
+  border-radius: 50%; /* Makes it circular */
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+}
+.subsubModuleAnimate input[type="checkbox"]:checked {
+  background-color: rgb(0, 200, 150); /* Fills in the circle when checked */
+}
+
+.subsubModuleAnimate_pair {
+  display:flex;
+  flex-direction: row;
+}
+.subsubModuleAnimate_pair input[type="range"]{
+  width:78px;
+}
+.subsubModuleAnimate_single {
+  display:flex;
+  width:100%;
+}
+
+#customSizeInputs {
+  display:flex;
+  flex-direction: row;
+
+  margin-top:5px;
+  margin-bottom:5px;
+}
+
+#customSizeInputs .moduleLabel {
+  height: 20px;
+  vertical-align: bottom;
+}
+.subModule5a .moduleLabel {
+  margin-top:5px;
+  margin-left:3px;
+}
+#blurMag {
+  display:none;
+}
+/* UI */
+
+select{
+  font-family: "Geist", sans-serif;
+
+  text-align:center;
+  width:100%;
+  height:30px;
+
+  padding:0;
+  margin-left:0;
+
+  border-radius: 3px;
+  border-color: #000;
+  background-color: #fff;
+  color: #000;
+}
+
+.subModule5b select{
+  height:20px;
+}
+
+.selectPair {
+  margin-top:5px;
+  display:flex;
+  flex-direction: row;
+  gap:5px;
+}
+
+input[type=number]{
+  font-family: "Geist", sans-serif;
+
+  text-align:center;
+  width:60px;
+  height:20px;
+
+  padding:0;
+  margin-left:5px;
+  margin-right:20px;
+
+  border:0;
+  border-radius: 3px;
+  background-color: #dcdcdc;
+  color: #000000;
+}
+
+input[type=file]{
+  width: 180px;
+}
+
+input[type=button]{
+  font-family: "Geist", sans-serif;
+  text-align:center;
+  width:100%;
+  height:30px;
+  padding:0;
+  margin-left:0;
+  /* margin-top:5px; */
+  border-width:1px;
+  border-radius: 3px;
+  border-color: #000;
+  background-color: #fff;
+  color: #000;
+
+  box-shadow: 2px 2px 0 0 #000;
+}
+
+input[type=range]{
+  margin-top:10px;
+}
+
+input[type=color]{
+  border:1px solid #8A9A88;
+  outline:0;
+  margin:0;
+  padding:0;
+  width:180px;
+  height:20px
+}
+input[type=color]::-webkit-color-swatch-wrapper{
+  padding:0
+}
+input[type=color]::-webkit-color-swatch{
+  border:none
+}
+
+.swatchGrid {
+  height:auto;
+  display:flex;
+  flex-direction:row;
+  flex-wrap: wrap;
+  gap:2px;
+}
+.swatchGrid div{
+  display:flex;
+  width:43px;
+  height:43px;
+  object-fit:fill;
+}
+
+input#pgGradAng {
+  margin-top:0;
+  padding-top:0;
+  border:0px;
+  box-shadow:none;
+  cursor: pointer;
+}
+
+input#approxLoop {
+  margin-top:5px;
+  padding-top:0;
+  border:0px;
+  box-shadow:none;
+  cursor: pointer;
+}
+
+input#userReset {
+  text-decoration: underline;
+  width:40px;
+  height:20px;
+  margin:0;
+  padding:0;
+  border:0px;
+  box-shadow:none;
+  cursor: pointer;
+}
+
+input[type=checkbox]{
+  accent-color: #a6b7b7;
+  margin-left:0;
+  margin-right:0;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Spacing between checkbox and text */
+  cursor: pointer;
+}
+
+/* Hide default checkbox */
+.checkbox-container input {
+  display: none;
+}
+
+/* Custom checkbox */
+.custom-checkbox {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #8A9A88; /* Light gray border */
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+/* Checkbox checked state */
+.checkbox-container input:checked + .custom-checkbox {
+  background: #A4D060; /* Green fill */
+  border-color: #A4D060;
+}
+
+/* Checkmark (✓) */
+.checkbox-container input:checked + .custom-checkbox::after {
+  /* content: "✔"; */
+  content: "x";
+  color: #102724; /* Dark green checkmark */
+  font-size: 14px;
+}
+
+button {
+  text-align:center;
+  width:50%;
+  height:30px;
+
+  padding:0;
+  /* margin-top:5px; */
+  margin-left:0;
+
+  border-radius: 53px;
+
+  border: 0;
+  background-color: #7ecf1c;
+  color: #002d2a;
+
+  box-shadow: 3px 3px 0px #002d2a;
+
+  cursor: pointer;
+}
+
+/* TYPE */
+
+h1 {
+  font-family: "GeistLight", sans-serif;
+  font-size:30px;
+  text-align:left;
+  line-height:30px;
+  margin-bottom:0;
+  margin-top: 0;
+  color: #000;
+}
+h2 {
+  font-family: "Geist", sans-serif;
+  text-align: left;
+  margin-top:5px;
+  margin-bottom:0;
+  font-size:8pt;
+  color: #000;
+}
+h3 {
+  font-family: "GeistExtraBold", sans-serif;
+  text-transform: uppercase;
+  /* text-decoration: underline; */
+  margin:0;
+  padding:0;
+  font-size:12pt;
+  color: #000;
+}
+
+h4 {
+  font-family: "Geist", sans-serif;
+  text-transform: uppercase;
+  text-align: center;
+  margin:0;
+  padding:5px;
+  font-size:10pt;
+  color: #fff;
+  background-color: red;
+  border-radius: 10px;
+}
+
+p {
+  font-family: "Geist", sans-serif;
+  color: #a6b7b7;
+}
+
+.moduleImg {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-top:15px;
+}
+
+/* SWATCHES */
+
+label {
+  font-family: "Geist", sans-serif;
+  font-size:10pt;
+  color: #000;
+
+  display: inline-block;
+  cursor: pointer;
+
+  margin-bottom:-5px;
+}
+
+.ranger {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 1px;
+  background: #000;
+  outline: none;
+}
+.ranger::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 13px;
+  height: 13px;
+  border-radius: 100%;
+  background: #000;
+  cursor: pointer;
+}
+input.fileInput {
+  width:180px;
+  /* margin-top: 5px; */
+  box-shadow: 2px 2px 0 0 #000;
+}
+.fileInput::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.fileInput::before {
+  width:178px;
+  height:20px;
+  text-align:center;
+  content: 'Upload Image';
+  display: inline-block;
+  border: 1px solid #000;
+  border-radius: 2px;
+  padding-top:5px;
+  margin:0;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+}
+.fileInput:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+
+input.jsonInput {
+  width:90px;
+  box-shadow: 2px 2px 0 0 #000;
+}
+.jsonInput::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.jsonInput::before {
+  width:90px;
+  height:20px;
+  text-align:center;
+  content: 'Load';
+  font-family: "Geist", sans-serif;
+  display: inline-block;
+  border: 1px solid #000;
+  border-radius: 2px;
+  padding-top:5px;
+  padding-bottom:3px;
+  margin:0;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+}
+.jsonInput:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+.uploadSpan {
+  /* font-family:'IBM Plex Mono',monospace; */
+  font-family: "Geist", sans-serif;
+  font-size:12px;
+  text-align:center;
+  color:#000;
+  margin:0;
+  /* margin-top:5px; */
+  margin-bottom:10px;
+  padding-bottom:5px;
+  height:5px;
+}
+
+#loopSet { display:none;     }
+#lineSet { display:none;}
+#sphereSet { display:none;}
+#stackSet { display:none;}
+
+#wireframe-container { display:none;        }
+#upload-clip-container { display:none; }
+#color-container { display:none; }
+#gradient-container { display:none; }
+#pgImageSelect-container { display:none; }
+#upload-pictures-container { display:none; }
+
+#rotationSpeedSlider{ display:none;        }
+#sequenceWindowSlider{ display:none;}
+
+#animateDeptherOn { display:none}
+#animateDeptherOff { display:none       }
+#animateFrameCOn { display:none}
+#animateFrameCOff { display:none        }
+#animateSizerrOn { display:none}
+#animateSizerOff { display:none       }
+#animateRadiusOn { display:none}
+#animateRadiusCOff { display:none       }
+
+#gradAccelOptions { display:none; }
+
+#accelMod { display:none; }
+#recStatus { display:none; }
+#motionOptions { display:none; }
+#loopNowPossible { display:none; }
+
+#resDistSlider { display: none;}
+#animateOption{ display: none; }
