@@ -97,6 +97,11 @@
           </div>
 
           <div class="subModule">
+            <input type="color" id="foreColor" name="foreColor" value="#000000" oninput="setForeColor(this.value)">
+            <div class="moduleLabel">Text</div>
+          </div>
+
+          <div class="subModule">
             <div class="moduleLabel">Dip Intensity</div>
             <input type="range" class="ranger" min="0" max="100" value="50" id="dipSize" oninput="setDipSize(this.value)">
           </div>
@@ -201,12 +206,10 @@
             </div>
           </div>
 
-
-          <div class="subModule3" id="alphaBkgdOption">
+          <!-- <div class="subModule3" id="alphaBkgdOption">
             <input type="checkbox" id="alphaBkgdToggle" name="alphaBkgdToggle" onclick="setAlphaBkgdToggle()">
             <label for="alphaBkgdToggle">Alpha Bkgd</label>
-          </div>
-
+          </div> -->
           
           <div class="subModule" id="motionOptions">
             <div class="moduleLabel">Length: <span id="numFrames">370</span> fr @ 30fps</div>

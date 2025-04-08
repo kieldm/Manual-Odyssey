@@ -1,8 +1,9 @@
 function drawCurves(){
+  drawText(0, inputText[0]);
+  drawText(1, inputText[1]);
+
   topCurve = new CurveType(0, tAlign, tCurve);      /// INDEX, DIRECT, ALIGN
   botCurve = new CurveType(1, bAlign, bCurve);
-
-  console.log(tCurve)
 }
 
 function setText(index, val){
@@ -97,6 +98,17 @@ function setCustomH(val){
 
 function setBkgdColor(val){
   bkgdColor = color(val);
+}
+
+function setForeColor(val){
+  console.log("SET FORE COLOR");
+
+  foreColor = color(val);
+
+  drawText(0, inputText[0]);
+  topCurve.pg = pg[0];
+  drawText(1, inputText[1]);
+  botCurve.pg = pg[1];
 }
 
 function runUserReset(){

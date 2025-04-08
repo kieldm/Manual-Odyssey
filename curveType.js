@@ -6,8 +6,6 @@ class CurveType {
     this.direct = direct;
     this.curve = curve;
 
-    drawText(this.i, inputText[this.i]);
-
     this.pg = pg[this.i];
     this.heightRatio = (width * 1/previewScaler)/this.pg.width * this.pg.height;
     

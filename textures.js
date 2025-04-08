@@ -7,6 +7,8 @@ function drawText(p, inp){   // straight text
   textFont(tFont[fontSel]);
   var repeatSize = round(textWidth(inp) * 1.1);
 
+  console.log("TEXTURE DRAWN: " + p);
+
   var pgW = repeatSize;
   var pgH = pgTextSize * tFontFactor[fontSel];
 
