@@ -613,20 +613,6 @@ input.jsonInput {
 #pgImageSelect-container { display:none; }
 #upload-pictures-container { display:none; }
 
-#rotationSpeedSlider{ display:none;        }
-#sequenceWindowSlider{ display:none;}
-
-#animateDeptherOn { display:none}
-#animateDeptherOff { display:none       }
-#animateFrameCOn { display:none}
-#animateFrameCOff { display:none        }
-#animateSizerrOn { display:none}
-#animateSizerOff { display:none       }
-#animateRadiusOn { display:none}
-#animateRadiusCOff { display:none       }
-
-#gradAccelOptions { display:none; }
-
 #accelMod { display:none; }
 #recStatus { display:none; }
 #motionOptions { display:none; }
@@ -634,3 +620,6 @@ input.jsonInput {
 
 #resDistSlider { display: none;}
 #animateOption{ display: none; }
+
+#imageBkgdSettings { display:none; }
+#colorBkgdSettings { display:block; }

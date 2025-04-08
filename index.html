@@ -59,9 +59,22 @@
             </div>
 
             <div class="subModule">
+              <select name="bkgdMode" id="bkgdMode" onchange="setBkgdMode(this.value)">
+                <option value="0" selected="selected">Color</option>
+                <option value="1">Image</option>
+              </select>
+            </div>
+
+            <div class="subModule" id="colorBkgdSettings">
               <input type="color" id="bkgdColor" name="bkgdColor" value="#ffffff" oninput="setBkgdColor(this.value)">
               <div class="moduleLabel">Background</div>
             </div>
+
+            <div class="subModule" id="imageBkgdSettings">
+              <input type="file" id="bkgdImageUpload" class="fileInput" name="bkgdImage" accept="image/png, image/jpeg, image/gif" oninput="uploadBkgdImage()">
+              <span class="uploadSpan" id="uploadedBkgdImage"></span>
+            </div>
+
           </div>
         </div>
 
@@ -95,7 +108,7 @@
 
           <div class="subModule">
             <div class="moduleLabel">Top Half</div>
-            <input type="text" value="EMPTY" id="text0" oninput="setText(0, this.value)">
+            <input type="text" value="Waabi" id="text0" oninput="setText(0, this.value)">
 
             <div class="subModule">
               <div class="subModule3_pair">
@@ -130,7 +143,7 @@
 
           <div class="subModule">
             <div class="moduleLabel">Bottom Half</div>
-            <input type="text" value="SPACE" id="text0" oninput="setText(1, this.value)">
+            <input type="text" value="Waabi" id="text0" oninput="setText(1, this.value)">
 
             <div class="subModule">
               <div class="subModule3_pair">
@@ -196,7 +209,7 @@
 
           
           <div class="subModule" id="motionOptions">
-            <div class="moduleLabel">Length: <span id="numFrames">30</span> fr @ 30fps</div>
+            <div class="moduleLabel">Length: <span id="numFrames">370</span> fr @ 30fps</div>
             <!-- <input type="range" class="ranger" min="0" max="100" value="20" id="numFramesSlider" oninput="setNumFrames(this.value)"> -->
 
             <div class="subModuleSubButton" id="loopNowPossible">

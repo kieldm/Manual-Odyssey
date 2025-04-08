@@ -9,10 +9,10 @@ class CurveType {
     drawText(this.i, inputText[this.i]);
 
     this.pg = pg[this.i];
-    this.heightRatio = width/this.pg.width * this.pg.height;
+    this.heightRatio = (width * 1/previewScaler)/this.pg.width * this.pg.height;
     
     this.resX = 20;
-    this.xSpace = width/(this.resX - 1);
+    this.xSpace = (width * 1/previewScaler)/(this.resX - 1);
     // this.ySpace = this.heightRatio/cutCount;
     this.ySpace = [];
     this.ySpaceOrg = [];
@@ -111,11 +111,11 @@ class CurveType {
 
       } else if(this.uTicker[m] < this.animWindow){
         var tk0 = map(this.uTicker[m], 0, this.animWindow, 0, 1);
-        this.uMove[m] = map(easeInOutExpo(tk0), 0, 1, 0, width);
+        this.uMove[m] = map(easeInOutExpo(tk0), 0, 1, 0, (width * 1/previewScaler));
 
       } else if(this.uTicker[m] < this.animWindow * 2){
         var tk0 = map(this.uTicker[m], this.animWindow, this.animWindow * 2, 0, 1);
-        this.uMove[m] = map(easeInOutExpo(tk0), 0, 1, width, width * 2);
+        this.uMove[m] = map(easeInOutExpo(tk0), 0, 1, (width * 1/previewScaler), (width * 1/previewScaler) * 2);
 
       } else {
         this.uMove[m] = 0;
@@ -158,7 +158,7 @@ class CurveType {
 
       if(this.i == 0){            /// FOR TOP HALF
         if(this.direct == 1){
-          translate(0, -height/2);
+          translate(0, -(height * 1/previewScaler)/2);
 
         } else {
           translate(0, 0);
@@ -169,11 +169,11 @@ class CurveType {
           translate(0, 0);
 
         } else {
-          translate(0, height/2);
+          translate(0, (height * 1/previewScaler)/2);
 
         }
       }
-      translate(-width/2, this.direct * 3 - this.spacer * 2);
+      translate(-(width * 1/previewScaler)/2, this.direct * 3 - this.spacer * 2);
 
       stroke(255);
 
@@ -187,8 +187,8 @@ class CurveType {
             var yTop = this.ySpace[m][n];
             var yBot = this.ySpace[m + 1][n];
 
-            var thisDist = (x + this.direct * this.uMove[m] + width * 10);
-            var u = map(thisDist, 0, width, 0, 1);
+            var thisDist = (x + this.direct * this.uMove[m] + (width * 1/previewScaler) * 10);
+            var u = map(thisDist, 0, (width * 1/previewScaler), 0, 1);
             var vTop = map(this.vSpaceHold[m][n], this.direct * this.heightRatio, 0, this.vUp, this.vDown);
             var vBot = map(this.vSpaceHold[m + 1][n], this.direct * this.heightRatio, 0, this.vUp, this.vDown);
 

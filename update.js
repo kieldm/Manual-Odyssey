@@ -23,6 +23,19 @@ function setCutCount(val){
   drawCurves();
 }
 
+function setBkgdMode(val){
+  bkgdMode = val;
+
+  if(bkgdMode == 0){
+    document.getElementById("colorBkgdSettings").style.display = "block";
+    document.getElementById("imageBkgdSettings").style.display = "none";
+    
+  } else {
+    document.getElementById("colorBkgdSettings").style.display = "none";
+    document.getElementById("imageBkgdSettings").style.display = "block";
+    
+  }
+}
 
 function setTextFont(val){
   fontSel = val;
@@ -104,53 +117,64 @@ function setAnimWin(val){
 
 //////////////////////////////////////////////////////////////////////// UPLOAD OPTIONS
 
+function uploadBkgdImage(){
+  const selectedFile = document.getElementById('bkgdImageUpload');
+  const myImageFile = selectedFile.files[0];
+  let urlOfImageFile = URL.createObjectURL(myImageFile);
+  pgImage = loadImage(urlOfImageFile, () => {image(pgImage, 0, 0)});
 
-function setUploadImage(inputElement) {
-  const selectedFile = document.getElementById('uploadImage');
-  const file = selectedFile.files[0];
-  
-  if (file) {
-      // fileName.textContent = file.name;
-      
-      // Create object URL from the file
-      const fileURL = URL.createObjectURL(file);
-      console.log('Created file URL:', fileURL);
-      
-      // First disable the current userImg
-      userImage = null;
-      imageLoaded = false;
-      
-      // Then load the new image, with a small delay to ensure proper loading
-      setTimeout(() => {
-          loadImage(fileURL, function(loadedImg) {
-              if (loadedImg && loadedImg.width > 1) {
-                  userImage = loadedImg;
-                  imageLoaded = true;
-                  // Log the dimensions to verify they're loaded correctly
-                  console.log('Loaded image dimensions:', loadedImg.width, 'x', loadedImg.height);
-              
-                  windowResized();
+  document.getElementById('uploadedBkgdImage').innerHTML = selectedFile.files[0].name;
+  document.getElementById('uploadedBkgdImage').style.display = "block";
 
-                  makeGraphic();
-                  makeDots();
-
-                  document.getElementById('uploadedImage').innerHTML = selectedFile.files[0].name;
-                  document.getElementById('uploadedImage').style.display = "block";
-
-                } else {
-                  console.error('Image loaded but with invalid dimensions:', 
-                      loadedImg ? `${loadedImg.width}x${loadedImg.height}` : 'undefined');
-              }
-              // Revoke the object URL to free memory
-              URL.revokeObjectURL(fileURL);
-          }, function(e) {
-              // Error callback
-              console.error('Error loading image:', e);
-              URL.revokeObjectURL(fileURL);
-          });
-      }, 100);
-  }
+  print("width? " + pgImage.width + " & height? " + pgImage.height)
 }
+
+// function setUploadImage(inputElement) {
+//   const selectedFile = document.getElementById('uploadImage');
+//   const file = selectedFile.files[0];
+  
+//   if (file) {
+//       // fileName.textContent = file.name;
+      
+//       // Create object URL from the file
+//       const fileURL = URL.createObjectURL(file);
+//       console.log('Created file URL:', fileURL);
+      
+//       // First disable the current userImg
+//       userImage = null;
+//       imageLoaded = false;
+      
+//       // Then load the new image, with a small delay to ensure proper loading
+//       setTimeout(() => {
+//           loadImage(fileURL, function(loadedImg) {
+//               if (loadedImg && loadedImg.width > 1) {
+//                   userImage = loadedImg;
+//                   imageLoaded = true;
+//                   // Log the dimensions to verify they're loaded correctly
+//                   console.log('Loaded image dimensions:', loadedImg.width, 'x', loadedImg.height);
+              
+//                   windowResized();
+
+//                   makeGraphic();
+//                   makeDots();
+
+//                   document.getElementById('uploadedImage').innerHTML = selectedFile.files[0].name;
+//                   document.getElementById('uploadedImage').style.display = "block";
+
+//                 } else {
+//                   console.error('Image loaded but with invalid dimensions:', 
+//                       loadedImg ? `${loadedImg.width}x${loadedImg.height}` : 'undefined');
+//               }
+//               // Revoke the object URL to free memory
+//               URL.revokeObjectURL(fileURL);
+//           }, function(e) {
+//               // Error callback
+//               console.error('Error loading image:', e);
+//               URL.revokeObjectURL(fileURL);
+//           });
+//       }, 100);
+//   }
+// }
 
 //////////////////////////////////////////////////////////////////////// EXPORT OPTIONS
 
@@ -172,7 +196,6 @@ function setSaveFileType(val){
     document.getElementById("alphaBkgdOption").style.display = "none";
 
     document.getElementById("alphaBkgdToggle").checked = false;
-    setAlphaBkgdToggle();
   }
 
   if(val == 2){
@@ -180,8 +203,7 @@ function setSaveFileType(val){
 
     if(animateToggle == false){
       animateToggle = true;
-      document.getElementById("animateToggle").checked = "true";
-      document.getElementById("animateOption").style.display = "block";
+      // document.getElementById("animateOption").style.display = "block";
 
     }
 

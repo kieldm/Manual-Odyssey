@@ -4,7 +4,7 @@ function runSave(){
 
   print("record length: " + numFrames);
 
-  figureNumFrames();
+  // figureNumFrames();
 
   var span = document.getElementById("numFrame");
   span.textContent = numFrames;

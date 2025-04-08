@@ -9,6 +9,8 @@ var pgTextSize = 250;
 var bkgdColor, foreColor;
 var main = []
 
+var pgImage;
+
 var topCurve, botCurve;
 
 var saveFileType = 0;
@@ -22,13 +24,16 @@ var customH = 1350;
 var dipSize = 200;
 var cutCount = 13;
 
+var numFrames = 370;
+
 var cwidth, cheight;
 var thisDensity = 1;
 var recMessageOn = false;
 var recording = false;
 var recordedFrames = 0;
-var numFrames = 150;
 var frate = 30;
+
+var bkgdMode = 0;
 
 var tAlign = 1;
 var tCurve = 0;
@@ -38,6 +43,7 @@ var bCurve = 0;
 var fontSel = 0;
 
 var debugToggle = false;
+var animateToggle = false;
 
 var mainCanvas;
 var canvasContainer; 
@@ -54,27 +60,51 @@ function preload(){
   tFont[8] = loadFont("resources/RightGrotesk-SpatialBlack.ttf");
   tFont[9] = loadFont("resources/FormulaCondensed-Black.otf");
 
-  tFontFactor[0] = 0.74;  
-  tFontFactor[1] = 0.69;  
-  tFontFactor[2] = 0.69;  
-  tFontFactor[3] = 0.73;  
-  tFontFactor[4] = 0.73;  
-  tFontFactor[5] = 0.73; 
-  tFontFactor[6] = 0.76; 
-  tFontFactor[7] = 0.72;  
-  tFontFactor[8] = 0.70;  
-  tFontFactor[9] = 0.82;  
+  // tFontFactor[0] = 0.74;  
+  // tFontFactor[1] = 0.69;  
+  // tFontFactor[2] = 0.69;  
+  // tFontFactor[3] = 0.73;  
+  // tFontFactor[4] = 0.73;  
+  // tFontFactor[5] = 0.73; 
+  // tFontFactor[6] = 0.76; 
+  // tFontFactor[7] = 0.72;  
+  // tFontFactor[8] = 0.70;  
+  // tFontFactor[9] = 0.82;  
 
-  tFontFactorBump[0] = 0.01;
-  tFontFactorBump[1] = 0.005;
-  tFontFactorBump[2] = 0.005;
-  tFontFactorBump[3] = 0.0075;
-  tFontFactorBump[4] = 0.0075;
-  tFontFactorBump[5] = 0.0075;
+  // tFontFactorBump[0] = 0.01;
+  // tFontFactorBump[1] = 0.005;
+  // tFontFactorBump[2] = 0.005;
+  // tFontFactorBump[3] = 0.0075;
+  // tFontFactorBump[4] = 0.0075;
+  // tFontFactorBump[5] = 0.0075;
+  // tFontFactorBump[6] = 0.02;
+  // tFontFactorBump[7] = 0.01;
+  // tFontFactorBump[8] = 0.01;
+  // tFontFactorBump[9] = 0.01;
+
+  tFontFactor[0] = 0.84;  
+  tFontFactor[1] = 0.74;  
+  tFontFactor[2] = 0.77;
+  tFontFactor[3] = 0.76;
+  tFontFactor[4] = 0.76;  
+  tFontFactor[5] = 0.76; 
+  tFontFactor[6] = 0.82;
+  tFontFactor[7] = 0.77;
+  tFontFactor[8] = 0.75;
+  tFontFactor[9] = 0.85;  
+
+  tFontFactorBump[0] = 0.02;
+  tFontFactorBump[1] = 0.02;
+  tFontFactorBump[2] = 0.025;
+  tFontFactorBump[3] = 0.025;
+  tFontFactorBump[4] = 0.025;
+  tFontFactorBump[5] = 0.025;
   tFontFactorBump[6] = 0.02;
-  tFontFactorBump[7] = 0.01;
-  tFontFactorBump[8] = 0.01;
-  tFontFactorBump[9] = 0.01;
+  tFontFactorBump[7] = 0.03;
+  tFontFactorBump[8] = 0.035;
+  tFontFactorBump[9] = 0.025;
+
+  pgImage = loadImage("resources/isleofskye.jpg");
 }
 
 function setup(){
@@ -99,8 +129,8 @@ function setup(){
 
   // frameRate(frate);
 
-  inputText[0] = "EMPTY";
-  inputText[1] = "SPACE";
+  inputText[0] = "Waabi";
+  inputText[1] = "Waabi";
 
   drawCurves();
 
@@ -108,6 +138,11 @@ function setup(){
 
 function draw() {
   background(bkgdColor);
+
+  scale(previewScaler);
+  if(bkgdMode == 1){
+    image(pgImage, 0, 0);
+  }
 
   // stroke(0,255,0);
   // line(-500, 0, 500, 0);
